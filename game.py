@@ -11,7 +11,7 @@ pygame.init()
 pygame.mixer.init(frequency=44100, size=-16, channels=1, buffer=512) 
 WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
-pygame.display.set_caption("Strzelanka 2D - Wersja Ostateczna (Naprawiona)")
+pygame.display.set_caption("Strzelanka 2D - Bez Muzyki w Tle")
 clock = pygame.time.Clock()
 
 # --- KOLORY ---
@@ -38,7 +38,7 @@ DIFFICULTY_SETTINGS = {
 sound_enabled = True
 is_fullscreen = False
 
-# --- FUNKCJE POMOCNICZE (W tym brakujące funkcje rankingu!) ---
+# --- FUNKCJE POMOCNICZE (Zapis, Odczyt) ---
 def load_json(filename, default):
     if os.path.exists(filename):
         try:
@@ -76,7 +76,7 @@ def draw_button(surface, text, font, text_color, x, y):
     surface.blit(text_surf, text_surf.get_rect(center=(x, y)))
     return rect
 
-# --- SYNTEZATOR DŹWIĘKÓW I MUZYKI ---
+# --- SYNTEZATOR DŹWIĘKÓW ---
 def create_melody(notes_with_durations, volume=0.1, wave_type='sine'):
     sample_rate = 44100
     total_samples = sum(int(dur * sample_rate) for freq, dur in notes_with_durations)
@@ -99,12 +99,12 @@ def create_melody(notes_with_durations, volume=0.1, wave_type='sine'):
             current_sample += 1
     return pygame.mixer.Sound(buffer=buf)
 
+# Usunięto bg_music
 boss_death_sound = create_melody([(300, 0.1), (200, 0.1), (100, 0.15), (50, 0.3)], volume=0.3)
 victory_sound = create_melody([(523.25, 0.15), (659.25, 0.15), (783.99, 0.15), (1046.50, 0.8)], volume=0.3)
 hit_sound = create_melody([(150, 0.05), (100, 0.1)], volume=0.2)
 powerup_sound = create_melody([(600, 0.05), (800, 0.1)], volume=0.1)
 error_sound = create_melody([(100, 0.15)], volume=0.2) 
-bg_music = create_melody([(55, 1.0), (65, 1.0)], volume=0.05, wave_type='square')
 
 def play_sound(sound_obj):
     if sound_enabled: sound_obj.play()
@@ -314,7 +314,6 @@ class PowerUp:
         while True:
             self.x = random.randint(50, WIDTH - 50)
             self.y = random.randint(50, HEIGHT - 50)
-            # Strefy bez spawnu na UI
             if self.x < 320 and self.y < 220: continue
             if self.x > WIDTH - 220 and self.y < 220: continue
             break 
@@ -485,7 +484,6 @@ class HealthPack:
         pygame.draw.line(surface, RED, (self.x, self.y - 8), (self.x, self.y + 8), 4)
         pygame.draw.line(surface, RED, (self.x - 8, self.y), (self.x + 8, self.y), 4)
 
-# --- BRAKUJĄCA KLASA PARTICLE ---
 class Particle:
     def __init__(self, x, y, color):
         self.x, self.y = x, y
@@ -550,8 +548,6 @@ def main():
     
     leaderboard = load_leaderboard()
     high_score = leaderboard[0]["score"] if len(leaderboard) > 0 else 0
-    
-    if sound_enabled: bg_music.play(loops=-1)
     
     def start_game():
         nonlocal game_state, endless_mode
@@ -626,8 +622,7 @@ def main():
                             elif action == "shop": game_state = "SHOP"
                             elif action == "toggle_sound":
                                 sound_enabled = not sound_enabled
-                                if sound_enabled: bg_music.play(loops=-1)
-                                else: pygame.mixer.stop()
+                                if not sound_enabled: pygame.mixer.stop()
                             elif action == "toggle_fs": game_surface = toggle_fs()
                             
                 elif game_state == "SHIP_SELECT":
@@ -687,8 +682,7 @@ def main():
                                 game_state = "MENU"
                             elif action == "toggle_sound": 
                                 sound_enabled = not sound_enabled
-                                if sound_enabled: bg_music.play(loops=-1)
-                                else: pygame.mixer.stop()
+                                if not sound_enabled: pygame.mixer.stop()
                             elif action == "toggle_fs": game_surface = toggle_fs()
 
             if game_state in ["GAME_OVER", "VICTORY"] and event.type == pygame.KEYDOWN:
@@ -1078,8 +1072,16 @@ def main():
                 game_surface.blit(pause_title, (WIDTH // 2 - pause_title.get_width() // 2, HEIGHT // 2 - 160))
                 
                 pause_btns["resume"] = draw_button(game_surface, "WZNÓW GRĘ", menu_font_small, GREEN, WIDTH // 2, HEIGHT // 2 - 50)
-                pause_btns["save_quit"] = draw_button(game_surface, "ZAKOŃCZ I ZAPISZ WYNIK", menu_font_small, YELLOW, WIDTH // 2, HEIGHT // 2 + 10)
-                pause_btns["menu"] = draw_button(game_surface, "WYJDŹ BEZ ZAPISU", menu_font_small, RED, WIDTH // 2, HEIGHT // 2 + 70)
+                
+                snd_text = "DŹWIĘK: ON" if sound_enabled else "DŹWIĘK: OFF"
+                snd_col = GREEN if sound_enabled else RED
+                pause_btns["toggle_sound"] = draw_button(game_surface, snd_text, menu_font_small, snd_col, WIDTH // 2, HEIGHT // 2 + 10)
+                
+                fs_text = "OKNO" if not is_fullscreen else "PEŁNY EKRAN"
+                pause_btns["toggle_fs"] = draw_button(game_surface, fs_text, menu_font_small, WHITE, WIDTH // 2, HEIGHT // 2 + 70)
+                
+                pause_btns["save_quit"] = draw_button(game_surface, "ZAKOŃCZ I ZAPISZ WYNIK", menu_font_small, YELLOW, WIDTH // 2, HEIGHT // 2 + 130)
+                pause_btns["menu"] = draw_button(game_surface, "WYJDŹ BEZ ZAPISU", menu_font_small, RED, WIDTH // 2, HEIGHT // 2 + 190)
 
         elif game_state in ["GAME_OVER", "VICTORY"]:
             end_btns.clear()
@@ -1109,7 +1111,6 @@ def main():
             if game_state == "VICTORY":
                 end_btns["continue"] = draw_button(game_surface, "GRAJ DALEJ (ENDLESS)", menu_font_small, YELLOW, WIDTH // 2, HEIGHT // 2 + 190)
 
-        # --- FINALNE RYSOWANIE NA EKRAN ---
         screen.fill(BLACK) 
         shake_x = random.randint(-5, 5) if screen_shake_frames > 0 else 0
         shake_y = random.randint(-5, 5) if screen_shake_frames > 0 else 0
