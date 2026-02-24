@@ -36,7 +36,7 @@ Menu i Interfejs:  **
    Myszka: Wybór opcji w menu głównym, sklepie i ekranie pauzy.   
    ESC: Pauza w trakcie gry / Wznowienie gry / Powrót do menu.   
    ENTER: Zapisanie wyniku na ekranie końcowym.   
-**Gracz 1 (Niebieski):   **
+**Gracz 1 (Niebieski):   **   
    Ruch: Klawisze W, A, S, D   
    Celowanie: Kursor myszy (automatyczny ostrzał)   
    Unik (Dash): SPACJA   
@@ -44,6 +44,7 @@ Menu i Interfejs:  **
    Ruch: Strzałki na klawiaturze (Góra, Dół, Lewo, Prawo)   
    Celowanie: Automatyczne (namierza najbliższego wroga)   
    Unik (Dash): Prawy CTRL   
+
 
 
 
