@@ -1,6 +1,7 @@
 # Kosmiczna Strzelanka 2D – Roguelite Arcade 🚀
 
-Dynamiczna, dwuwymiarowa gra zręcznościowa napisana w języku Python przy użyciu biblioteki Pygame. Projekt łączy klasyczną mechanikę "bullet hell" z nowoczesnymi elementami roguelite, takimi jak meta-progresja, klasy statków oraz sklep z ulepszeniami.
+Dynamiczna, dwuwymiarowa gra zręcznościowa napisana w języku Python przy użyciu biblioteki Pygame. 
+Projekt łączy klasyczną mechanikę "bullet hell" z nowoczesnymi elementami roguelite, takimi jak meta-progresja, klasy statków oraz sklep z ulepszeniami.
 
 Gra została stworzona jako projekt zaliczeniowy, demonstrujący zaawansowane wykorzystanie programowania obiektowego (OOP) oraz efektywną współpracę z modelami generatywnej sztucznej inteligencji (Google Gemini).
 
@@ -9,7 +10,8 @@ Gra została stworzona jako projekt zaliczeniowy, demonstrujący zaawansowane wy
 * **Klasy Statków:** Wybierz jeden z trzech statków (Lekki, Zbalansowany, Ciężki) różniących się prędkością, ilością punktów życia (HP) i odnowieniem uniku.
 * **Meta-progresja (Sklep):** Zbieraj monety podczas gry i wydawaj je w menu głównym na stałe ulepszenia (zwiększenie maksymalnego HP, wyższy poziom startowy).
 * **System Walki i Combo:** Unikaj ciosów za pomocą Dasha (I-frames), zbieraj Power-Upy (Tarcza, Rapid-fire, Shotgun, Laser) i nabijaj mnożnik Combo za szybkie eliminacje.
-* **Proceduralne Audio i Efekty:** Gra **nie wymaga** żadnych zewnętrznych plików dźwiękowych! Wszystkie efekty (wybuchy, strzały, fanfary) oraz muzyka w tle są generowane matematycznie w locie (synteza fal). Całości dopełnia trzęsienie ekranu (Screen Shake) i autorski system cząsteczek (Particles).
+* **Proceduralne Audio i Efekty:** Gra **nie wymaga** żadnych zewnętrznych plików dźwiękowych! Wszystkie efekty (wybuchy, strzały, fanfary) oraz muzyka w tle są generowane
+*  matematycznie w locie (synteza fal). Całości dopełnia trzęsienie ekranu (Screen Shake) i autorski system cząsteczek (Particles).
 * **Trwały Ranking (Leaderboard):** System zapisuje 10 najlepszych wyników wraz z nazwami graczy w pliku JSON.
 
 ## 💻 Wymagania systemowe
@@ -46,5 +48,6 @@ Gracz 2 (Różowy - Tryb Co-op):
 Ruch: Strzałki na klawiaturze (Góra, Dół, Lewo, Prawo)
 Celowanie: Automatyczne (namierza najbliższego wroga)
 Unik (Dash): Prawy CTRL
+
 
 
