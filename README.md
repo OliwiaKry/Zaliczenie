@@ -32,7 +32,7 @@ python game.py
 
  
 **🎮 Sterowanie
-Menu i Interfejs:  ** 
+Menu i Interfejs:  **    
    Myszka: Wybór opcji w menu głównym, sklepie i ekranie pauzy.   
    ESC: Pauza w trakcie gry / Wznowienie gry / Powrót do menu.   
    ENTER: Zapisanie wyniku na ekranie końcowym.   
@@ -44,6 +44,7 @@ Menu i Interfejs:  **
    Ruch: Strzałki na klawiaturze (Góra, Dół, Lewo, Prawo)   
    Celowanie: Automatyczne (namierza najbliższego wroga)   
    Unik (Dash): Prawy CTRL   
+
 
 
 
