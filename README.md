@@ -22,7 +22,7 @@ Aby uruchomić grę, potrzebujesz zainstalowanego środowiska Python (wersja 3.8
    ```bash
    pip install pygame
    
-🚀Instrukcja uruchomienia   
+## 🚀Instrukcja uruchomienia   
 1. Pobierz lub sklonuj repozytorium z grą na swój dysk.   
 2. Otwórz terminal w folderze z projektem.   
 3.Uruchom plik główny poleceniem:   
@@ -32,8 +32,8 @@ python game.py
 (Opcjonalnie: Możesz utworzyć skrót Windows uruchamiający grę przez pythonw.exe game.py, aby ukryć okno konsoli).   
 
  
-**🎮 Sterowanie
-Menu i Interfejs:  **    
+## **🎮 Sterowanie ** 
+** Menu i Interfejs:  **    
    Myszka: Wybór opcji w menu głównym, sklepie i ekranie pauzy.   
    ESC: Pauza w trakcie gry / Wznowienie gry / Powrót do menu.   
    ENTER: Zapisanie wyniku na ekranie końcowym.   
@@ -45,6 +45,7 @@ Menu i Interfejs:  **
    Ruch: Strzałki na klawiaturze (Góra, Dół, Lewo, Prawo)   
    Celowanie: Automatyczne (namierza najbliższego wroga)   
    Unik (Dash): Prawy CTRL   
+
 
 
 
